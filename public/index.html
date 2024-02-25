@@ -1,173 +1,46 @@
 <!DOCTYPE html>
-<html>
-<head>
-    <title>WebGIS by Space Alpha</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- leaflet css -->
-    <link rel="stylesheet" href="./leaflet.css"/>
-    <link rel="stylesheet" href="./style.css"/>
-    <link rel="stylesheet" href="./menu.css"/>
-</head>
-<body>
-    <div class="menu">
-        <img src="./img/logo.png" alt="Logo" class="logo">
-        <span class="logo-text">Space Alpha</span>
-        <ul>
-            <li><a href="#">Dữ liệu</a></li>
-            <li><a href="#">Thông tin</a></li>
-        </ul>
-        <div class="search-box">
-            <input type="text" placeholder="Nhập địa danh...">
-            <button type="submit">Tìm kiếm</button>
-        </div>
-    </div>
-    <div id="map">
-        <div class="leaflet-control coordinate"></div>
-    </div>
-</body>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    <link rel="stylesheet" href="leaflet.css" />
+    <!-- Link to Leaflet JavaScript -->
+    <script src="leaflet.js"></script>
+    <meta
+      name="description"
+      content="Web site created using create-react-app"
+    />
+    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
+    <!--
+      manifest.json provides metadata used when your web app is installed on a
+      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
+    -->
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+    <!--
+      Notice the use of %PUBLIC_URL% in the tags above.
+      It will be replaced with the URL of the `public` folder during the build.
+      Only files inside the `public` folder can be referenced from the HTML.
+
+      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
+      work correctly both with client-side routing and a non-root public URL.
+      Learn how to configure a non-root public URL by running `npm run build`.
+    -->
+    <title>Space Alpha</title>
+  </head>
+  <body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="root"></div>
+    <!--
+      This HTML file is a template.
+      If you open it directly in the browser, you will see an empty page.
+
+      You can add webfonts, meta tags, or analytics to this file.
+      The build step will place the bundled scripts into the <body> tag.
+
+      To begin the development, run `npm start` or `yarn start`.
+      To create a production bundle, use `npm run build` or `yarn build`.
+    -->
+  </body>
 </html>
-
-<!-- leaflet js -->
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
-<script src="https://unpkg.com/geojson-vt@3.2.0/geojson-vt.js"></script>
-<script src="../src/js/leaflet-geojson-vt.js"></script>
-
-<!-- GEO JSON IMPORT -->
-<script src="../src/js/kimlien2point.js"></script>
-
-<script>
-    var map = L.map('map').setView([21.00860076055473, 105.83505392074586], 17); // Kim Liên
-    /*==============================================
-                TILE LAYER and WMS
-    ================================================*/
-    // // osm layer
-    // var osm = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    // attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors; &copy; Space Alpha WebGIS'
-    // });
-    // osm.addTo(map);
-
-    // google map satellite layer
-    var googleSat = L.tileLayer('http://{s}.google.com/vt?lyrs=s&x={x}&y={y}&z={z}',{
-    maxZoom: 20,
-    minZoom: 15,
-    attribution: '&copy; Space Alpha WebGIS',
-    subdomains:['mt0','mt1','mt2','mt3']
-    });
-    googleSat.addTo(map);
-
-    // Esri_WorldImagery layer
-    var Esri_WorldImagery = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
-	attribution: '&copy; Space Alpha WebGIS'
-    });
-    Esri_WorldImagery.addTo(map);
-
-    // // osm layer
-    // var osm = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    // attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors; &copy; Space Alpha WebGIS'
-    // });
-    // osm.addTo(map);
-
-    /*==============================================
-                MARKER
-    ================================================*/
-    // Instruction: L.marker(<LatLng> latlng, <Marker options> options?)
-    // icon
-    var myIcon = L.icon({
-        iconUrl: './img/red_marker.png',
-        iconSize: [40, 40],})
-    var singleMarker = L.marker([21.64621238043191, 105.67700759537553],{icon: myIcon});
-    var popup = singleMarker.bindPopup('Masan ' + singleMarker.getLatLng()).openPopup()
-    popup.addTo(map);
-
-    var secondMarker = L.marker([21.646441, 105.676478],{icon: myIcon});
-    var popup = secondMarker.bindPopup('Masan ' + secondMarker.getLatLng()).openPopup()
-    popup.addTo(map);
-
-    // console.log(singleMarker.toGEOJSON());
-
-    /*==============================================
-                GEOJSON
-    ================================================*/
-    var options = {
-    maxZoom: 18,
-    indexMaxZoom: 4,        // max zoom in the initial tile index
-    indexMaxPoints: 100000, // max number of points per tile in the index
-    solidChildren: false,    // whether to include solid tile children in the index
-    tolerance: 3,
-    extent: 4096, // tile extent (both width and height)
-    buffer: 64,   // tile buffer on each side
-    debug: 0,      // logging level (0 to disable, 1 or 2)
-    // radius: 100, // Kích thước của circle marker, có thể điều chỉnh
-    style: (properties) => {
-    if (!(properties.VALUE < -10 || properties.VALUE >= 0)) {
-      return  {fillColor:"#28bcea",color:"#28bcea",size:"10"};
-    } else if (properties.VALUE >= -20 && properties.VALUE < -10) {
-      return  {fillColor:"#a7fc3f",color:"#a7fc3f",size:"10"};
-    } else if (properties.VALUE >= -30 && properties.VALUE < -20) {
-        return {fillColor:"#fb7e22",color:"#fb7e22",size:"10"}
-    } else if (properties.VALUE >= -40 && properties.VALUE < -30) {
-        return {fillColor:"#7c0205",color:"#7c0205",size:"10"}
-    } else if (properties.VALUE >= 0 && properties.VALUE < 5){
-        return {fillColor:"#2023c6",color:"#2023c6",size:"10"}
-            }
-        }
-    };
-    var vtLayer = L.geoJson.vt(kimlien2pointJson, options).addTo(map);
-    // End GEOJSON
-
-    /*==============================================
-                LAYER CONTROLLER
-    ================================================*/
-    var baseMaps = {
-        "Google Stalites": googleSat,
-        "Esri_WorldImagery": Esri_WorldImagery
-        // "OpenStreetMap": osm
-    };
-
-    var overlayMaps = {
-        "Kim Lien": vtLayer
-        // "Marker": singleMarker
-    };
-    
-    // Show all
-    var layerControl = L.control.layers(baseMaps, overlayMaps, {collapsed: false}).addTo(map); // Add layer controller to the map
-    // Hide all
-    // var layerControl = L.control.layers(baseMaps, overlayMaps).addTo(map); // Add layer controller to the map
-    // end Layer controller
-
-    /*==============================================
-                LEAFLET EVENTS
-    ================================================*/
-    map.on('mouseover', function(){
-        console.log('Your mouse is over the map')
-    })
-
-    map.on('mousemove', function(e){
-        document.getElementsByClassName('coordinate')[0].innerHTML = e.latlng.lat + ' ' + e.latlng.lng;
-        console.log('lat: '+ e.latlng.lat, 'lng: ' + e.latlng.lng)
-    })
-
-    /*==============================================
-                LEAFLET NOTES
-    ================================================*/
-    // Tạo một control tùy chỉnh
-    var legend = L.control({position: 'topleft'});
-
-    // Define phương thức onAdd của control
-    legend.onAdd = function (map) {
-        var div = L.DomUtil.create('div', 'legend');
-        // Tùy chỉnh nội dung của chú thích ở đây
-        div.innerHTML = '<h4>Tốc độ lún mm/năm</h4>' +
-                        '<div class="legend-item"><span class="legend-circle" style="background-color: #7c0205;"></span> -40 ~ -30</div>' +
-                        '<div class="legend-item"><span class="legend-circle" style="background-color: #fb7e22;"></span> -30 ~ -20</div>' +
-                        '<div class="legend-item"><span class="legend-circle" style="background-color: #a7fc3f;"></span> -20 ~ -10</div>' +
-                        '<div class="legend-item"><span class="legend-circle" style="background-color: #28bcea;"></span> -10 ~ 0</div>' +
-                        '<div class="legend-item"><span class="legend-circle" style="background-color: #2023c6;"></span> -0 ~ 5</div>';
-        return div;
-    };
-
-    // Thêm control vào bản đồ
-    legend.addTo(map);
-
-</script>

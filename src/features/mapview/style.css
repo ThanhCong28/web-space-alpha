@@ -1,0 +1,110 @@
+
+        body{
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 12px; /* Đặt kích thước chữ chung */
+        }
+        #map{
+            width: 100%;
+            height: 95vh;
+        }
+
+        .coordinate {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            /* background: #000000; */
+            color: #ffffff;
+            backdrop-filter: blur(10px); /* Mờ nền */
+        }
+
+        .leaflet-popup-content-wrapper {
+            background-color: #000000;
+            color: #ffffff;
+            /* border: 2px solid red; */
+            /* border-radius: 0px; */
+        }
+
+        .leaflet-popup-tip {
+            background-color: #000000;
+        }
+
+        .legend {
+            background-color: rgba(0, 0, 0, 0.5); /* Màu đen với độ mờ */
+            color: white; /* Màu chữ trắng */
+            padding: 10px; /* Khoảng cách nội dung */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Hiệu ứng bóng đổ */
+        }
+        .legend h4 {
+            margin-top: 0;
+            font-size: 12px;
+            color: #ffffff;
+        }
+        .legend p {
+            margin: 5px 0;
+        }
+
+        .legend-item {
+            margin-bottom: 5px;
+        }
+        .legend-circle {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            margin-right: 5px;
+        }
+
+        .logo-container {
+            position: absolute;
+            bottom: 5px;
+            left: 0px;
+            z-index: 1000; /* Đảm bảo logo hiển thị trên bản đồ */
+        }
+        .logo-img {
+            width: 100px; /* Kích thước logo */
+            height: auto;
+        }
+
+        .leaflet-control-zoom-in {
+        position: fixed;
+        bottom: 100px; /* Khoảng cách từ bottom */
+        right: 10px; /* Khoảng cách từ right */
+        }
+
+        /* Di chuyển nút zoom out sang góc phải dưới cùng */
+        .leaflet-control-zoom-out {
+        position: fixed;
+        bottom: 60px; /* Khoảng cách từ bottom */
+        right: 10px; /* Khoảng cách từ right */
+        }
+
+        /* CSS để điều chỉnh style của các lớp điều khiển */
+        .leaflet-control-layers,
+        .leaflet-control-layers-expanded {
+            background-color: rgba(0, 0, 0, 0.7); /* Đặt màu nền đen mờ */
+            color: white; /* Đặt màu chữ */
+        }
+
+        /* CSS để thay đổi style của các chữ trong lớp điều khiển */
+        .leaflet-control-layers label {
+            color: white; /* Màu chữ */
+            font-size: 12px;
+        }
+
+        /* CSS để thay đổi style của các nút trong lớp điều khiển */
+        .leaflet-control-layers-toggle {
+            color: white; /* Màu chữ của nút toggle */
+        }
+
+        /* CSS để điều chỉnh style khi lớp điều khiển được mở rộng */
+        .leaflet-control-layers-expanded {
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.5); /* Đặt hiệu ứng bóng đổ */
+        }
+        .leaflet-control-attribution {
+            background-color: rgba(0, 0, 0, 0.5); /*Đặt màu nền đen mờ*/
+            color: rgb(0, 0, 0); /* Đặt màu chữ */
+            padding: 2px; /* Thêm padding để tạo khoảng trắng xung quanh phần tử */
+        }

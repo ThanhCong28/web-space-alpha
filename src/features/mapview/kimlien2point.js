@@ -276,4 +276,4 @@ var kimlien2pointJson = {
 { "type": "Feature", "properties": { "VALUE": 0.0 }, "geometry": { "type": "Point", "coordinates": [ 105.837173216878099, 21.0061096889306 ] } },
 { "type": "Feature", "properties": { "VALUE": 0.0 }, "geometry": { "type": "Point", "coordinates": [ 105.837450773162104, 21.0061096889306 ] } }
 ]
-}
+};
