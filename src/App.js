@@ -5,7 +5,6 @@ import LoginScreen from "./features/login/LoginScreen";
 import { createBrowserHistory } from "history";
 import SettingScreen from "./features/setting/SettingScreen";
 import MapViewScreen from "./features/mapview/MapViewScreen";
-import { MapContainer, TileLayer, GeoJSON, Marker, Popup, useMap } from 'react-leaflet'
 
 function App() {
   const history = createBrowserHistory();

@@ -619,10 +619,64 @@ function OnEachFeature (feature, layer) {
     });
 }
 
+function GoogleSatelliteLayer (baseMap) {
+    if (baseMap === "GoogleSatellite") {
+        return (
+            <LayersControl.BaseLayer checked name="Google Satellite">
+                <TileLayer
+                    url='http://{s}.google.com/vt?lyrs=s&x={x}&y={y}&z={z}'
+                    subdomains={['mt0','mt1','mt2','mt3']}>
+                </TileLayer>
+            </LayersControl.BaseLayer>
+        );
+    } else {
+        return (
+            <LayersControl.BaseLayer name="Google Satellite">
+                <TileLayer
+                    url='http://{s}.google.com/vt?lyrs=s&x={x}&y={y}&z={z}'
+                    subdomains={['mt0','mt1','mt2','mt3']}>
+                </TileLayer>
+            </LayersControl.BaseLayer>
+        );
+    }
+}
+
+function StreetmapLayer (baseMap) {
+    if (baseMap === "Streetmap") {
+        return (
+            <LayersControl.BaseLayer checked name="Street map">
+                <TileLayer
+                    attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                    >
+                </TileLayer>
+            </LayersControl.BaseLayer>
+        );
+    } else {
+        return (
+            <LayersControl.BaseLayer name="Street map">
+                <TileLayer
+                    attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                    >
+                </TileLayer>
+            </LayersControl.BaseLayer>
+        );
+    }
+}
+
 //const MapViewScreen = () => {
 export default function MapViewScreen () {
     const history = useHistory();
     var user = localStorage.getItem("user");
+    var basemap = localStorage.getItem("basemap");
+    console.log("MapViewScreen basemap=", basemap);
+    var centerpoint = localStorage.getItem("centerpoint");
+    var temp = new Array();
+    // This will return an array with strings "1", "2", etc.
+    temp = centerpoint.split(",");
+    var centerLat = parseFloat(temp[0]);
+    var centerLng = parseFloat(temp[1]);
     return (
         <>
         {/* <link rel="stylesheet" href="leaflet.css" /> */}
@@ -648,22 +702,17 @@ export default function MapViewScreen () {
                 Chào mừng bạn {user}.
                 Đây là trang Map view.
             </span>
-        </div>        
+        </div>
 
-        <MapContainer center={[21.00860076055473, 105.83505392074586]} zoom={16} scrollWheelZoom={false} style={{height: '100vh'}}>
+        {/* 21.00860076055473, 105.83505392074586 */}
+        <MapContainer center={[centerLat, centerLng]} zoom={16} scrollWheelZoom={false} style={{height: '100vh'}}>  
             <LayersControl position="topright">
-                <LayersControl.BaseLayer  name="Google Satellite">
+                {/* <LayersControl.BaseLayer name="Google Satellite"
+                checked>
                     <TileLayer
-                        // attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                        //url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'>
                         url='http://{s}.google.com/vt?lyrs=s&x={x}&y={y}&z={z}'
                         subdomains={['mt0','mt1','mt2','mt3']}>
                     </TileLayer>
-                    {/* <Marker position={center}>
-                    <Popup>
-                        A pretty CSS3 popup. <br /> Easily customizable.
-                    </Popup>
-                    </Marker> */}
                 </LayersControl.BaseLayer>
 
                 <LayersControl.BaseLayer checked name="Street map">
@@ -672,7 +721,10 @@ export default function MapViewScreen () {
                         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                         >
                     </TileLayer>
-                </LayersControl.BaseLayer>
+                </LayersControl.BaseLayer> */}
+                
+                <GoogleSatelliteLayer baseMap={basemap}/>
+                <StreetmapLayer baseMap={basemap}/>
 
                 <LayersControl.Overlay checked name="Kim Liên" >
                     <GeoJSON
@@ -681,14 +733,8 @@ export default function MapViewScreen () {
                         pointToLayer={PointToLayer}
                         filter={Filter}
                         onEachFeature={OnEachFeature}>
-                        {/* key={Date.now()} */}
                     </GeoJSON>
                 </LayersControl.Overlay>
-                {/* <Marker position={[15.78580796588987, 111.20485991464999]}>
-                    <Popup>
-                        A pretty CSS3 popup. <br /> Easily customizable.
-                    </Popup>
-                </Marker> */}
             </LayersControl>
         </MapContainer>
         </>
