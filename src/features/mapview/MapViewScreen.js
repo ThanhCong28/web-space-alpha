@@ -1,7 +1,7 @@
 import * as React from "react";
 import { useState, useEffect } from 'react';
 import { useHistory } from "react-router-dom";
-import { MapContainer, TileLayer, GeoJSON, LayersControl, LayerGroup, Circle, Marker, Popup, useMap, CircleMarker } from 'react-leaflet'
+import { MapContainer, TileLayer, GeoJSON, LayersControl, Rectangle, LayerGroup, Circle, Marker, Popup, useMap, CircleMarker } from 'react-leaflet'
 import "./MapViewScreen.css";
 //import kimlien2pointJson from "./kimlien2point.js";
 import L from 'leaflet';
@@ -677,6 +677,8 @@ export default function MapViewScreen () {
     temp = centerpoint.split(",");
     var centerLat = parseFloat(temp[0]);
     var centerLng = parseFloat(temp[1]);
+    const blackOptions = { color: 'black' }
+    var rectangle = [[21.00860076055473, 105.83505392074586], [21.00660076055473, 105.80505392074586]];
     return (
         <>
         {/* <link rel="stylesheet" href="leaflet.css" /> */}
@@ -723,13 +725,14 @@ export default function MapViewScreen () {
                     </TileLayer>
                 </LayersControl.BaseLayer> */}
                 
-                <GoogleSatelliteLayer baseMap={basemap}/>
-                <StreetmapLayer baseMap={basemap}/>
+                <GoogleSatelliteLayer baseMap={user}/>
+                <StreetmapLayer baseMap={user}/>
+                {/* <Image bounds={rectangle} pathOptions={blackOptions} /> */}
 
                 <LayersControl.Overlay checked name="Kim Liên" >
                     <GeoJSON
                         attribution="&copy; credits due..."
-                        data= {GetDataFromUser(user)}
+                        data={GetDataFromUser(user)}
                         pointToLayer={PointToLayer}
                         filter={Filter}
                         onEachFeature={OnEachFeature}>

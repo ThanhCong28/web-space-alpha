@@ -28,17 +28,17 @@ const LoginScreen = () => {
     if (userName.length == 0 || password.length == 0) {
       alert("Vui lòng nhập đầy đủ thông tin");
       return false;
-    } else if (userName === "admin" && password === "spal1234") {
+    } else if (userName === "admin" && password === "ad1234") {
       console.log("Admin Login Success ........");
       localStorage.setItem("user", userName);
       history.push("/setting");
       return true;
-    } else if (userName === "user1" && password === "us123456") {
+    } else if (userName === "user1" && password === "us1234") {
       console.log("User1 Login Success ........");
       localStorage.setItem("user", userName);
       history.push("/mapview");
       return true;
-    } else if (userName === "user2" && password === "us123456") {
+    } else if (userName === "user2" && password === "us1234") {
       console.log("User2 Login Success ........");
       localStorage.setItem("user", userName);
       history.push("/mapview");

@@ -80,7 +80,7 @@ const SettingScreen = () => {
 
         <div className="text_form">
           <span className="input_field_label">Hãy chọn base map: </span>
-          <Container style={{ margin: 10 }}>
+          <Container>
             <Dropdown
               placeholder='base map'
               fluid
